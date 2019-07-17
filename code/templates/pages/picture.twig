@@ -1,0 +1,17 @@
+
+<style type='text/css'>
+  .page-{{ index }}-background {
+    background-image: url('/var/whomst/{{ page.file }}');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+</style>
+<div class='page page-picture page-{{ index }}-background'>
+{% if page.heading %}
+  <h2 class='page-{{ index }}-heading'>{{ page.heading }}</h2>
+{% endif %}
+{% if page.subHeading %}
+  <h3 class='page-{{ index }}-subheading'>{{ page.subHeading }}</h3>
+{% endif %}
+</div>

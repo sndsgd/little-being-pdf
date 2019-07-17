@@ -1,0 +1,6 @@
+{
+    "require": {
+        "opis/json-schema": "^1.0",
+        "twig/twig": "^2.11"
+    }
+}

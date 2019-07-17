@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta name='generator' content='sndsgd/little-being-pdf'>
+  <title>{{ pdf.title }}</title>
+  {% if pdf.fontUrl -%}
+  <link href="{{ pdf.fontUrl }}" rel="stylesheet">
+  {% endif %}
+  <style type='text/css'>
+    * {
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      margin: 0;
+    }
+
+    .page {
+      position: relative;
+      width: {{ pdf.width }}in;
+      height: {{ pdf.height }}in;
+      page-break-inside: avoid;
+    }
+
+    .page + .page {
+      page-break-before: always;
+    }
+
+    table {
+      box-sizing: content-box;
+      border-collapse: collapse;
+      margin-top: 10mm;
+      margin-left: 1%;
+      margin-right: 1%;
+      width: 98%;
+    }
+
+    thead {
+      border-top: 1px solid #efefef;
+      border-bottom: 1px solid #efefef;
+      text-align: left;
+    }
+
+    tbody {
+      border-bottom: 1px solid #efefef;
+    }
+
+    th {
+      padding: 2mm;
+      font-weight: bold;
+    }
+
+    td {
+      padding: 2mm;
+    }
+
+    tr {
+      border-top: 1px solid #efefef;
+    }
+
+    {% if pdf.css -%}
+      {{ pdf.css }}
+    {% endif %}
+  </style>
+</head>
+<body>
+  {% for index, page in pdf.pages %}
+    {% set index = index + 1 %}
+    {% if page.type == "picture" -%}
+      {{ include("pages/picture.twig") }}
+    {% elseif page.type == "table" -%}
+      {{ include("pages/table.twig") }}
+    {% elseif page.type == "list" -%}
+      {{ include("pages/list.twig") }}
+    {% endif %}
+  {% endfor %}
+</body>
+</html>

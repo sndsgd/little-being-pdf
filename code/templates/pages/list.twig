@@ -1,0 +1,14 @@
+
+<div class='page page-list page-{{ index }}-background'>
+{% if page.heading %}
+  <h2 class='page-{{ index }}-heading'>{{ page.heading }}</h2>
+{% endif %}
+{% if page.subHeading %}
+  <h3 class='page-{{ index }}-subheading'>{{ page.subHeading }}</h3>
+{% endif %}
+  <ul>
+    {% for index, text in page.items -%}
+      <li>{{ text|raw }}</li>
+    {% endfor %}
+  </ul>
+</div>

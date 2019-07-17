@@ -1,0 +1,57 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . "/vendor/autoload.php";
+
+$dir = realpath("/var/whomst");
+
+$json = file_get_contents(__DIR__ . "/schema/info.json");
+$schema = json_decode($json);
+
+$yaml = yaml_parse_file("$dir/info.yaml");
+$data = json_decode(json_encode($yaml));
+
+$validator = new \Opis\JsonSchema\Validator();
+$result = $validator->dataValidation($data, $schema);
+if (!$result->isValid()) {
+    foreach ($result->getErrors() as $error) {
+        print_r($error);
+        continue;
+        $args = $error->keywordArgs();
+        echo sprintf("%s -> expected %s\n", $error->keyword(), $args["expected"]);
+    }
+
+    exit(1);
+}
+
+$firstName = strtolower(substr($data->title, 0, strpos($data->title, " ")));
+$htmlPath = "$dir/$firstName.html";
+$pdfPath = "$dir/$firstName.pdf";
+
+$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . "/templates");
+$twig = new \Twig\Environment($loader);
+$template = $twig->load("html.twig");
+$html = $template->render(["pdf" => $data]);
+file_put_contents($htmlPath, $html);
+
+$cmd = [
+    "wkhtmltopdf",
+    "--page-width {$data->width}in",
+    "--page-height {$data->height}in",
+    "--margin-top 0",
+    "--margin-right 0",
+    "--margin-bottom 0",
+    "--margin-left 0",
+    "--disable-smart-shrinking",
+    "--dpi 300",
+    // '--javascript-delay 3000',
+    // '--zoom 1.0011',
+    escapeshellarg($htmlPath),
+    escapeshellarg($pdfPath)
+];
+
+$cmd = implode(" ", $cmd);
+exec($cmd, $result, $exitcode);
+if ($exitcode !== 0) {
+    exit(1);
+}

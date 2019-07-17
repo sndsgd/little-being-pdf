@@ -1,0 +1,27 @@
+
+<div id='page-{{ index }}' class='page page-table'>
+  {% if page.heading -%}
+    <h2 id='page-{{ index }}-heading'>{{ page.heading }}</h2>
+  {% endif %}
+  <table>
+    {% if page.columns -%}
+      <thead>
+      <tr>
+        {% for column in page.columns -%}
+          <th>{{ column }}</th>
+        {% endfor %}
+        </tr>
+      </thead>
+    {% endif -%}
+    <tbody>
+      {% for row in page.values -%}
+      <tr>
+        {% for value in row -%}
+            <td>{{ value }}</td>
+        {% endfor -%}
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+</div>

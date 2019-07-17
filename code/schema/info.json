@@ -1,0 +1,100 @@
+{
+    "type": "object",
+    "required": ["title", "pages"],
+    "properties": {
+        "title": {
+            "type": "string"
+        },
+        "height": {
+            "type": "number",
+            "default": 3.5
+        },
+        "width": {
+            "type": "number",
+            "default": 5.5
+        },
+        "fontUrl": {
+            "type": "string"
+        },
+        "pages": {
+            "type": "array",
+            "items": {
+                "oneOf": [
+                    { "$ref": "#/definitions/picturePage" },
+                    { "$ref": "#/definitions/tablePage" },
+                    { "$ref": "#/definitions/listPage" }
+                ]
+            }
+        },
+        "css": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "additionalProperties": false,
+    "definitions": {
+        "picturePage" : {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "file": {
+                    "type": "string"
+                },
+                "heading": {
+                    "type": "string"
+                },
+                "subHeading": {
+                    "type": "string"
+                }
+            },
+            "required": ["type", "file"]
+        },
+        "tablePage": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "heading": {
+                    "type": "string"
+                },
+                "columns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "values": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "required": ["type", "values"]
+        },
+        "listPage": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "heading": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": ["type", "items"]
+        }
+    }
+}

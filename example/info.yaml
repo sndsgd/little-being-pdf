@@ -1,0 +1,63 @@
+---
+title: &name John Doe
+height: 4
+width: 6
+
+fontUrl: https://fonts.googleapis.com/css?family=Barlow:400,400i,500,500i,700,700i&display=swap
+
+pages:
+  - type: picture
+    file: cover.jpg
+    heading: *name
+    subHeading: Born on July 4th, 2019
+  - type: table
+    heading: Technical Characteristics
+    columns: [Characteristic, Value]
+    values:
+      - [Born, "2019-07-04 at 7:42 PM"]
+      - [Gender, Male]
+      - [Mass, 4190 g (9 lb 4 oz)]
+      - [Length, 54.6 cm (21.5 in)]
+  - type: list
+    heading: Fun Facts
+    items:
+      - Maecenas at felis sed lacus dignissim suscipit et ut nisl
+      - Praesent justo magna, lacinia ornare nunc sed, gravida fermentum enim
+      - Integer ac lorem mauris. Ut vitae lectus lacinia, pharetra sapien finibus, ullamcorper est
+
+css: |
+  body {
+    font-family: Barlow;
+    font-weight: 400;
+  }
+  .page {
+    padding: 10mm;
+    border: 2mm solid white;
+  }
+  .page-1-heading {
+    position: absolute;
+    bottom: 16mm;
+    left: 10mm;
+    width: 100%;
+    color: black;
+    font-size: 10mm;
+  }
+  .page-1-subheading {
+    position: absolute;
+    bottom: 10mm;
+    left: 10.3mm;
+    width: 100%;
+    color: black;
+    font-size: 6mm;
+  }
+  table {
+    font-size: 5mm;
+  }
+  ul {
+    margin-top: 10mm;
+    font-size: 5mm;
+    list-style: disc outside none;
+  }
+  li {
+    padding-bottom: 1mm;
+  }
